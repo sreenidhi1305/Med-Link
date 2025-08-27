@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: light;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  /* Using plain CSS to avoid IDE '@apply' at-rule lint */
+  background-color: #f9fafb; /* gray-50 */
+  color: #111827; /* gray-900 */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Slow pan of the equirectangular Earth background to simulate rotation */
+@keyframes earth-pan {
+  0% { background-position: 0% center; }
+  100% { background-position: 100% center; }
+}
+
+.animate-earth-pan {
+  animation: earth-pan 120s linear infinite;
+}
+
+/* More controllable class for hover reverse via parent .group */
+.earth-pan {
+  animation-name: earth-pan;
+  animation-duration: 120s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: normal;
+}
+
+/* When the container has .group and is hovered, subtly reverse and ease */
+.group:hover .earth-pan {
+  animation-direction: reverse;
+  animation-timing-function: ease-in-out;
+  animation-duration: 90s;
+}
+
+/* Tooltip fade helper (works with group-hover in Tailwind utilities) */
+.tooltip-fade {
+  opacity: 0;
+  transition: opacity 150ms ease;
+}
+.group:hover .tooltip-fade { opacity: 1; }
+
+/* SOS strobe animation */
+@keyframes sos-flash {
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.animate-sos-flash {
+  animation: sos-flash 600ms cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
